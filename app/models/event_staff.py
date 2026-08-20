@@ -1,7 +1,13 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import (
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String
+)
+from sqlalchemy.orm import relationship
 
 from app.db.database import Base
 
@@ -10,27 +16,30 @@ class EventStaff(Base):
 
     __tablename__ = "event_staff"
 
-    id: Mapped[int] = mapped_column(
+    id = Column(
+        Integer,
         primary_key=True,
         index=True
     )
 
-    user_id: Mapped[int] = mapped_column(
+    user_id = Column(
+        Integer,
         ForeignKey("users.id"),
         nullable=False
     )
 
-    event_id: Mapped[int] = mapped_column(
+    event_id = Column(
+        Integer,
         ForeignKey("events.id"),
         nullable=False
     )
 
-    role: Mapped[str] = mapped_column(
+    role = Column(
         String(100),
         nullable=False
     )
 
-    assigned_at: Mapped[datetime] = mapped_column(
+    assigned_at = Column(
         DateTime,
         default=datetime.utcnow,
         nullable=False

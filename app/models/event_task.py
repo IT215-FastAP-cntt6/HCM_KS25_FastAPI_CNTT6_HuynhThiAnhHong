@@ -1,45 +1,57 @@
 from datetime import datetime
-from sqlalchemy import DateTime, ForeignKey, String, Text
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from sqlalchemy import (
+    Column,
+    DateTime,
+    ForeignKey,
+    Integer,
+    String,
+    Text
+)
+from sqlalchemy.orm import relationship
+
 from app.db.database import Base
+
 
 class EventTask(Base):
 
     __tablename__ = "event_tasks"
 
-    id: Mapped[int] = mapped_column(
+    id = Column(
+        Integer,
         primary_key=True,
         index=True
     )
 
-    event_staff_id: Mapped[int] = mapped_column(
+    event_staff_id = Column(
+        Integer,
         ForeignKey("event_staff.id"),
         nullable=False
     )
 
-    title: Mapped[str] = mapped_column(
+    title = Column(
         String(255),
         nullable=False
     )
 
-    description: Mapped[str | None] = mapped_column(
+    description = Column(
         Text,
         nullable=True
     )
 
-    status: Mapped[str] = mapped_column(
+    status = Column(
         String(50),
         default="pending",
         nullable=False
     )
 
-    created_at: Mapped[datetime] = mapped_column(
+    created_at = Column(
         DateTime,
         default=datetime.utcnow,
         nullable=False
     )
 
-    updated_at: Mapped[datetime] = mapped_column(
+    updated_at = Column(
         DateTime,
         default=datetime.utcnow,
         onupdate=datetime.utcnow,

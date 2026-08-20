@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import Boolean, DateTime, String
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Boolean, Column, DateTime, Integer, String
+from sqlalchemy.orm import relationship
 
 from app.db.database import Base
 
@@ -10,42 +10,43 @@ class User(Base):
 
     __tablename__ = "users"
 
-    id: Mapped[int] = mapped_column(
+    id = Column(
+        Integer,
         primary_key=True,
         index=True
     )
 
-    username: Mapped[str] = mapped_column(
+    username = Column(
         String(100),
         unique=True,
         nullable=False,
         index=True
     )
 
-    email: Mapped[str] = mapped_column(
+    email = Column(
         String(255),
         unique=True,
         nullable=False,
         index=True
     )
 
-    password_hash: Mapped[str] = mapped_column(
+    password_hash = Column(
         String(255),
         nullable=False
     )
 
-    full_name: Mapped[str | None] = mapped_column(
+    full_name = Column(
         String(255),
         nullable=True
     )
 
-    is_active: Mapped[bool] = mapped_column(
+    is_active = Column(
         Boolean,
         default=True,
         nullable=False
     )
 
-    created_at: Mapped[datetime] = mapped_column(
+    created_at = Column(
         DateTime,
         default=datetime.utcnow,
         nullable=False

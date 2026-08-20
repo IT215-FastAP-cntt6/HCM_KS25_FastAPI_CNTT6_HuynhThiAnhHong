@@ -1,7 +1,7 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, String, Text
-from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Column, DateTime, Integer, String, Text
+from sqlalchemy.orm import relationship
 
 from app.db.database import Base
 
@@ -10,32 +10,33 @@ class Event(Base):
 
     __tablename__ = "events"
 
-    id: Mapped[int] = mapped_column(
+    id = Column(
+        Integer,
         primary_key=True,
         index=True
     )
 
-    name: Mapped[str] = mapped_column(
+    name = Column(
         String(255),
         nullable=False
     )
 
-    description: Mapped[str | None] = mapped_column(
+    description = Column(
         Text,
         nullable=True
     )
 
-    start_time: Mapped[datetime] = mapped_column(
+    start_time = Column(
         DateTime,
         nullable=False
     )
 
-    end_time: Mapped[datetime] = mapped_column(
+    end_time = Column(
         DateTime,
         nullable=False
     )
 
-    created_at: Mapped[datetime] = mapped_column(
+    created_at = Column(
         DateTime,
         default=datetime.utcnow,
         nullable=False

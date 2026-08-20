@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.responses import JSONResponse
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
@@ -28,12 +29,15 @@ def health_check(
         )
 
     except Exception:
-        return {
-            "success": False,
-            "message": "Database connection failed",
-            "status_code": 503,
-            "data": {
-                "api": "running",
-                "database": "disconnected"
+        return JSONResponse(
+            status_code=503,
+            content={
+                "success": False,
+                "message": "Database connection failed",
+                "status_code": 503,
+                "data": {
+                    "api": "running",
+                    "database": "disconnected"
+                }
             }
-        }
+        )
